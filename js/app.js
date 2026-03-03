@@ -8,6 +8,9 @@ if (tg) {
   }
 }
 
+// ⬇️ Замените на свой Telegram-контакт (бот или менеджер)
+const CONTACT_URL = 'https://t.me/YOUR_USERNAME';
+
 // Данные ассистентов
 const assistants = [
   {
@@ -150,6 +153,19 @@ const assistants = [
   },
 ];
 
+// Текущий открытый ассистент
+let currentAssistant = null;
+
+function handleMainButtonClick() {
+  if (!currentAssistant) return;
+  const url = currentAssistant.payUrl || CONTACT_URL;
+  if (tg?.openLink) {
+    tg.openLink(url);
+  } else {
+    window.open(url, '_blank');
+  }
+}
+
 // Рендер каталога
 function renderCatalog() {
   const catalog = document.getElementById('catalog');
@@ -170,11 +186,11 @@ function renderCatalog() {
 
 // Открыть модалку
 function openModal(id) {
-  const a = assistants.find(x => x.id === id);
-  if (!a) return;
+  currentAssistant = assistants.find(x => x.id === id);
+  if (!currentAssistant) return;
+  const a = currentAssistant;
 
-  const body = document.getElementById('modal-body');
-  body.innerHTML = `
+  document.getElementById('modal-body').innerHTML = `
     <div class="modal-icon">${a.icon}</div>
     <div class="modal-title">${a.title}</div>
     <div class="modal-tagline">${a.tagline}</div>
@@ -188,14 +204,28 @@ function openModal(id) {
   `;
 
   const btn = document.getElementById('modal-btn');
-  if (a.payUrl) {
-    btn.href = a.payUrl;
-    btn.classList.remove('disabled');
-    btn.textContent = 'Купить';
-  } else {
-    btn.href = '#';
-    btn.classList.add('disabled');
-    btn.textContent = 'Скоро';
+  const hasPayUrl = !!a.payUrl;
+  btn.textContent = hasPayUrl ? 'Купить' : 'Написать нам';
+  btn.classList.remove('disabled');
+  btn.onclick = (e) => {
+    e.preventDefault();
+    const url = hasPayUrl ? a.payUrl : CONTACT_URL;
+    if (tg?.openLink) {
+      tg.openLink(url);
+    } else {
+      window.open(url, '_blank');
+    }
+  };
+
+  if (tg?.MainButton) {
+    tg.MainButton.setText(hasPayUrl ? `Купить за ${a.price.toLocaleString('ru-RU')} ₽` : 'Написать нам');
+    tg.MainButton.show();
+    tg.MainButton.onClick(handleMainButtonClick);
+  }
+
+  if (tg?.BackButton) {
+    tg.BackButton.show();
+    tg.BackButton.onClick(closeModal);
   }
 
   document.getElementById('modal').classList.remove('hidden');
@@ -203,7 +233,27 @@ function openModal(id) {
 
 // Закрыть модалку
 function closeModal() {
+  if (tg?.MainButton) {
+    tg.MainButton.hide();
+    tg.MainButton.offClick(handleMainButtonClick);
+  }
+  if (tg?.BackButton) {
+    tg.BackButton.hide();
+    tg.BackButton.offClick(closeModal);
+  }
+  currentAssistant = null;
   document.getElementById('modal').classList.add('hidden');
 }
 
 renderCatalog();
+
+// Swipe-to-close для шторки
+const modalContentEl = document.querySelector('.modal-content');
+let touchStartY = 0;
+modalContentEl.addEventListener('touchstart', e => {
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+modalContentEl.addEventListener('touchend', e => {
+  const delta = e.changedTouches[0].clientY - touchStartY;
+  if (delta > 80 && modalContentEl.scrollTop === 0) closeModal();
+}, { passive: true });
