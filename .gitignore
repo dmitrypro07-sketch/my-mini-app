@@ -1,0 +1,11 @@
+# Переменные окружения — никогда не коммитить!
+.env
+.env.local
+.env.*.local
+
+# Системные файлы Windows
+desktop.ini
+Thumbs.db
+
+# macOS
+.DS_Store
