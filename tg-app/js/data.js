@@ -4,7 +4,7 @@
 
 // ⬇️ Ваш Telegram-контакт (бот или менеджер)
 // Пример: 'https://t.me/your_manager' или 'https://t.me/your_bot'
-const CONTACT_URL = 'https://t.me/YOUR_USERNAME';
+const CONTACT_URL = 'https://t.me/+l0EH8ETSvIgyNjQy';
 
 // ⬇️ Ссылка на бота после покупки (экран Success)
 // Если тот же контакт — оставьте как есть
