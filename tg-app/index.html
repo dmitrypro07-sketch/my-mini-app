@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <!-- user-scalable=no — отключаем зум, как в нативном приложении -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>АИ-сотрудники</title>
+
+  <!-- Telegram Web App SDK — обязательно первым -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       ЭКРАН 1: КАТАЛОГ (главный экран)
+  ══════════════════════════════════════════════ -->
+  <div id="screen-catalog" class="screen active">
+
+    <!-- Шапка -->
+    <header class="header">
+      <div class="header-title">🤖 АИ-сотрудники</div>
+      <div class="header-sub">Готовые ассистенты для вашего бизнеса</div>
+    </header>
+
+    <!-- Фильтры по категориям (горизонтальная прокрутка) -->
+    <div class="filters-wrap">
+      <div class="filters" id="filters">
+        <!-- Чипы рендерятся через JS из массива categories в data.js -->
+      </div>
+    </div>
+
+    <!-- Список карточек ассистентов -->
+    <main class="catalog" id="catalog">
+      <!-- Карточки рендерятся через JS из массива assistants в data.js -->
+    </main>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       ЭКРАН 2: SUCCESS (после покупки)
+  ══════════════════════════════════════════════ -->
+  <div id="screen-success" class="screen">
+    <div class="success-wrap">
+      <span class="success-icon">✅</span>
+      <h1 class="success-title">Оплата прошла!</h1>
+
+      <!-- Название купленного ассистента — вставляется через JS -->
+      <p class="success-product" id="success-product-name"></p>
+
+      <p class="success-label">Что делать дальше:</p>
+      <ol class="success-steps">
+        <li>Перейди в бота по кнопке ниже</li>
+        <li>Нажми <strong>/start</strong></li>
+        <li>Выбери нужного ассистента в меню</li>
+      </ol>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       ШТОРКА: ДЕТАЛИ АССИСТЕНТА
+       Overlay — затемнение фона, тап закрывает шторку
+  ══════════════════════════════════════════════ -->
+  <div id="sheet-overlay" class="sheet-overlay" onclick="closeSheet()"></div>
+
+  <div id="sheet" class="sheet">
+
+    <!-- Полоска-индикатор (намёк на свайп вниз) -->
+    <div class="sheet-handle"></div>
+
+    <!-- Кнопка закрытия -->
+    <button class="sheet-close" onclick="closeSheet()" aria-label="Закрыть">✕</button>
+
+    <!-- Контент шторки — рендерится через JS -->
+    <div class="sheet-body" id="sheet-body"></div>
+
+    <!-- Кнопка-фоллбэк (всегда видна; в Telegram дублируется через MainButton) -->
+    <div class="sheet-footer">
+      <button class="btn-primary" id="sheet-btn" onclick="handleBuy()">
+        Написать нам
+      </button>
+    </div>
+
+  </div>
+
+
+  <!-- Данные ассистентов (константы, CONTACT_URL) -->
+  <script src="js/data.js"></script>
+  <!-- Основная логика: экраны, шторка, фильтры, Telegram API -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>

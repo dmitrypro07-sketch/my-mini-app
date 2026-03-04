@@ -1,0 +1,572 @@
+/* ══════════════════════════════════════════════════════════
+   CSS-переменные — цветовая схема (светлая тема)
+   При тёмной теме body получает класс .dark (через JS)
+══════════════════════════════════════════════════════════ */
+:root {
+  --bg:           #f0f2f5;
+  --card-bg:      #ffffff;
+  --sheet-bg:     #ffffff;
+  --header-bg:    #2AABEE;
+  --text:         #1a1a1a;
+  --subtext:      #6b7280;
+  --accent:       #2AABEE;
+  --accent-press: #1a9de0;
+  --border:       #e5e7eb;
+  --tag-bg:       #e8f5fe;
+  --tag-text:     #2AABEE;
+  --overlay:      rgba(0, 0, 0, 0.5);
+  --chip-active-bg: #2AABEE;
+  --chip-active-text: #ffffff;
+  --badge-hit:    #ff6b35;
+  --badge-new:    #2AABEE;
+  --success-bg:   #f0f9ff;
+}
+
+body.dark {
+  --bg:           #1c1c1e;
+  --card-bg:      #2c2c2e;
+  --sheet-bg:     #2c2c2e;
+  --text:         #f2f2f7;
+  --subtext:      #8e8e93;
+  --border:       #3a3a3c;
+  --tag-bg:       #1a3a5c;
+  --tag-text:     #60b0ff;
+  --success-bg:   #1c2c3e;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   Сброс и базовые стили
+══════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* убираем синюю вспышку при тапе */
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* прокручивается только внутренний контент */
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Запрет выделения текста при свайпе */
+.sheet, .card, .chip {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   Управление экранами
+   Активный экран — .active (плавный fade + лёгкий сдвиг)
+══════════════════════════════════════════════════════════ */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  background: var(--bg);
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   Шапка (Header)
+══════════════════════════════════════════════════════════ */
+.header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 16px 16px 14px;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.header-sub {
+  font-size: 13px;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   Фильтры-чипы (горизонтальная прокрутка)
+══════════════════════════════════════════════════════════ */
+.filters-wrap {
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  padding: 10px 16px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+.filters::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+.chip {
+  flex-shrink: 0;
+  min-height: 32px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--subtext);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.chip:active {
+  opacity: 0.75;
+}
+
+.chip.active {
+  background: var(--chip-active-bg);
+  border-color: var(--chip-active-bg);
+  color: var(--chip-active-text);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   Каталог (скроллируемая область с карточками)
+══════════════════════════════════════════════════════════ */
+.catalog {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px 100px; /* снизу 100px — под возможный MainButton */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   Карточка ассистента
+══════════════════════════════════════════════════════════ */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  /* Мягкая тень — ощущение карточки, не сайта */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.card:active {
+  transform: scale(0.975);
+  box-shadow: none;
+}
+
+/* Бейдж "Хит" / "Новинка" */
+.card-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #fff;
+}
+
+.card-badge.хит     { background: var(--badge-hit); }
+.card-badge.новинка { background: var(--badge-new); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.card-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Отступ справа — чтобы бейдж не перекрывал заголовок */
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  padding-right: 52px;
+  line-height: 1.3;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--subtext);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.card-tag {
+  font-size: 11px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* Пустое состояние (нет карточек по фильтру) */
+.catalog-empty {
+  text-align: center;
+  color: var(--subtext);
+  font-size: 14px;
+  padding: 48px 16px;
+}
+
+.catalog-empty-icon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   Оверлей (затемнение под шторкой)
+══════════════════════════════════════════════════════════ */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay);
+  z-index: 50;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+/* Скрытый оверлей — без pointer-events, без opacity */
+.sheet-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   Шторка (модальный bottom sheet)
+══════════════════════════════════════════════════════════ */
+.sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--sheet-bg);
+  border-radius: 20px 20px 0 0;
+  z-index: 51;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  /* По умолчанию — скрыта за нижним краем экрана */
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Открытое состояние */
+.sheet.open {
+  transform: translateY(0);
+}
+
+/* Полоска-индикатор (подсказка для свайпа вниз) */
+.sheet-handle {
+  width: 36px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 10px auto 0;
+  flex-shrink: 0;
+}
+
+/* Кнопка закрытия ✕ */
+.sheet-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: var(--border);
+  color: var(--subtext);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.sheet-close:active { background: var(--subtext); color: var(--card-bg); }
+
+/* Прокручиваемое тело шторки */
+.sheet-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sheet-icon {
+  font-size: 44px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.sheet-title {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  padding-right: 40px; /* чтобы ✕ не перекрывал */
+}
+
+.sheet-tagline {
+  font-size: 14px;
+  color: var(--subtext);
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+
+/* Секция "Что вы получите" */
+.sheet-section {
+  margin-bottom: 16px;
+}
+
+.sheet-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--subtext);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+
+.sheet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sheet-list li {
+  font-size: 14px;
+  color: var(--text);
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.45;
+}
+
+.sheet-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Социальное доказательство */
+.sheet-proof {
+  font-size: 13px;
+  color: var(--subtext);
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 9px 14px;
+  border-radius: 10px;
+  margin: 16px 0;
+  font-weight: 500;
+}
+
+/* Цена */
+.sheet-price {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+/* Подпись под ценой */
+.sheet-price-note {
+  font-size: 12px;
+  color: var(--subtext);
+  margin-bottom: 8px;
+}
+
+/* Нижняя панель с кнопкой */
+.sheet-footer {
+  padding: 12px 20px 28px;
+  flex-shrink: 0;
+  border-top: 1px solid var(--border);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   Кнопки
+══════════════════════════════════════════════════════════ */
+.btn-primary {
+  display: block;
+  width: 100%;
+  min-height: 50px; /* минимум 44px по требованию */
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: -0.1px;
+}
+
+.btn-primary:active {
+  background: var(--accent-press);
+  transform: scale(0.98);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   Экран Success
+══════════════════════════════════════════════════════════ */
+#screen-success {
+  background: var(--success-bg);
+  justify-content: center;
+  align-items: center;
+  padding: 32px 24px 80px; /* отступ снизу под MainButton */
+  text-align: center;
+}
+
+.success-wrap {
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success-icon {
+  font-size: 72px;
+  display: block;
+  margin-bottom: 20px;
+  animation: pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes pop {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.success-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.success-product {
+  font-size: 16px;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 28px;
+}
+
+.success-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--subtext);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 14px;
+  align-self: flex-start;
+}
+
+/* Нумерованный список шагов */
+.success-steps {
+  list-style: none;
+  counter-reset: step-counter;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+  align-self: flex-start;
+  text-align: left;
+}
+
+.success-steps li {
+  counter-increment: step-counter;
+  padding-left: 36px;
+  position: relative;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.success-steps li::before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-btn-wrap {
+  width: 100%;
+}
