@@ -430,10 +430,16 @@ body {
   }
 
   .sheet-hero {
-    width: 240px;
-    height: auto;
+    width: 280px;
+    align-self: stretch;
     border-radius: 20px 0 0 0;
     flex-shrink: 0;
+    background: #000;
+  }
+
+  .sheet-hero img {
+    object-fit: contain;
+    object-position: center;
   }
 
   .sheet-content {
