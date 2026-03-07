@@ -210,13 +210,13 @@ body {
   display: block;
 }
 
-/* Название ассистента — overlay поверх фото, текст в правой половине */
+/* Название ассистента — overlay поверх фото */
 .card-title-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 14px 8px 6px 50%;
+  padding: 14px 8px 6px 8px;
   background: linear-gradient(transparent, rgba(0,0,0,0.72));
   color: #fff;
   font-size: 11px;
@@ -238,11 +238,11 @@ body {
   min-width: 0; /* важно для text-overflow */
 }
 
-/* Бейдж "Хит" / "Новинка" — прямой прямоугольник в верхнем левом углу */
+/* Бейдж "Хит" / "Новинка" — прямой прямоугольник в верхнем правом углу */
 .card-badge {
   position: absolute;
   top: 8px;
-  left: 8px;
+  right: 8px;
   font-size: 9px;
   font-weight: 700;
   padding: 3px 8px;
