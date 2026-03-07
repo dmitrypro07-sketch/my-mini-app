@@ -196,6 +196,7 @@ body {
 /* Фото слева */
 .card-image {
   width: 140px;
+  min-height: 88px;
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
