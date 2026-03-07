@@ -135,15 +135,15 @@ function renderCatalog() {
   container.innerHTML = list.map(a => `
     <div class="card" onclick="openSheet(${a.id})">
 
-      <!-- Фото слева + название поверх -->
+      <!-- Фото слева -->
       <div class="card-image">
         ${a.image ? `<img src="${a.image}" alt="${a.title}" loading="lazy" />` : ''}
         ${a.badge ? `<div class="card-badge ${a.badge.toLowerCase()}">${a.badge}</div>` : ''}
-        <div class="card-title-overlay">${a.title}</div>
       </div>
 
       <!-- Контент справа -->
       <div class="card-content">
+        <div class="card-title">${a.title}</div>
         <div class="card-desc">${a.desc}</div>
         <div class="card-footer">
           <span class="card-price">${formatPrice(a.price)}</span>
