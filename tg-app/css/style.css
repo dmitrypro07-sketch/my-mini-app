@@ -236,11 +236,9 @@ body {
   min-width: 0; /* важно для text-overflow */
 }
 
-/* Бейдж "Хит" / "Новинка" — инлайн рядом с первым словом названия */
+/* Бейдж "Хит" / "Новинка" — float right, одинаковый отступ от края */
 .card-badge {
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: 4px;
+  float: right;
   font-size: 9px;
   font-weight: 700;
   padding: 2px 6px;
