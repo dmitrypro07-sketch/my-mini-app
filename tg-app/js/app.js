@@ -180,21 +180,24 @@ function openSheet(id) {
 
   // Наполняем шторку контентом
   document.getElementById('sheet-body').innerHTML = `
-    <span class="sheet-icon">${a.icon}</span>
-    <div class="sheet-title">${a.title}</div>
-    <div class="sheet-tagline">${a.tagline}</div>
+    ${a.image ? `<div class="sheet-hero"><img src="${a.image}" alt="${a.title}" /></div>` : ''}
+    <div class="sheet-content">
+      <span class="sheet-icon">${a.icon}</span>
+      <div class="sheet-title">${a.title}</div>
+      <div class="sheet-tagline">${a.tagline}</div>
 
-    <div class="sheet-section">
-      <div class="sheet-section-title">Что вы получите</div>
-      <ul class="sheet-list">
-        ${a.features.map(f => `<li>${f}</li>`).join('')}
-      </ul>
+      <div class="sheet-section">
+        <div class="sheet-section-title">Что вы получите</div>
+        <ul class="sheet-list">
+          ${a.features.map(f => `<li>${f}</li>`).join('')}
+        </ul>
+      </div>
+
+      ${a.proof ? `<div class="sheet-proof">${a.proof}</div>` : ''}
+
+      <div class="sheet-price">${formatPrice(a.price)}</div>
+      <div class="sheet-price-note">единоразовая оплата, навсегда</div>
     </div>
-
-    ${a.proof ? `<div class="sheet-proof">${a.proof}</div>` : ''}
-
-    <div class="sheet-price">${formatPrice(a.price)}</div>
-    <div class="sheet-price-note">единоразовая оплата, навсегда</div>
   `;
 
   // Кнопка-фоллбэк
