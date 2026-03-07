@@ -138,12 +138,12 @@ function renderCatalog() {
       <!-- Фото слева + название поверх -->
       <div class="card-image">
         ${a.image ? `<img src="${a.image}" alt="${a.title}" loading="lazy" />` : ''}
+        ${a.badge ? `<div class="card-badge ${a.badge.toLowerCase()}">${a.badge}</div>` : ''}
         <div class="card-title-overlay">${a.title}</div>
       </div>
 
       <!-- Контент справа -->
       <div class="card-content">
-        ${a.badge ? `<div class="card-badge ${a.badge.toLowerCase()}">${a.badge}</div>` : ''}
         <div class="card-desc">${a.desc}</div>
         <div class="card-footer">
           <span class="card-price">${formatPrice(a.price)}</span>

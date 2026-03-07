@@ -238,18 +238,21 @@ body {
   min-width: 0; /* важно для text-overflow */
 }
 
-/* Бейдж "Хит" / "Новинка" — в правом блоке карточки */
+/* Бейдж "Хит" / "Новинка" — диагональная лента на фото */
 .card-badge {
-  display: inline-block;
-  align-self: flex-start;
+  position: absolute;
+  top: 18px;
+  left: -26px;
+  width: 110px;
+  text-align: center;
+  transform: rotate(-45deg);
   font-size: 9px;
   font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 10px;
+  padding: 4px 0;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.5px;
   color: #fff;
-  margin-bottom: 4px;
+  z-index: 2;
 }
 
 .card-badge.хит     { background: var(--badge-hit); }
@@ -268,7 +271,6 @@ body {
 }
 
 .card-desc {
-  flex: 1;
   font-size: 12px;
   color: var(--subtext);
   line-height: 1.4;
@@ -283,6 +285,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 6px;
+  margin-top: auto;
 }
 
 .card-price {
