@@ -234,7 +234,7 @@ body {
   padding: 12px 12px 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 4px;
   min-width: 0; /* важно для text-overflow */
 }
 
@@ -282,6 +282,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 6px;
+  margin-top: auto;
 }
 
 .card-price {
