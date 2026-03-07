@@ -238,17 +238,15 @@ body {
   min-width: 0; /* важно для text-overflow */
 }
 
-/* Бейдж "Хит" / "Новинка" — диагональная лента на фото */
+/* Бейдж "Хит" / "Новинка" — прямоугольник в правом верхнем углу */
 .card-badge {
   position: absolute;
-  top: 18px;
-  left: -26px;
-  width: 110px;
-  text-align: center;
-  transform: rotate(-45deg);
+  top: 8px;
+  right: 8px;
   font-size: 9px;
   font-weight: 700;
-  padding: 4px 0;
+  padding: 3px 8px;
+  border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: #fff;
