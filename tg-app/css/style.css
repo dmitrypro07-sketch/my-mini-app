@@ -238,11 +238,10 @@ body {
   min-width: 0; /* важно для text-overflow */
 }
 
-/* Бейдж "Хит" / "Новинка" — поверх фото */
+/* Бейдж "Хит" / "Новинка" — в правом блоке карточки */
 .card-badge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
+  display: inline-block;
+  align-self: flex-start;
   font-size: 9px;
   font-weight: 700;
   padding: 3px 8px;
@@ -250,7 +249,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.4px;
   color: #fff;
-  z-index: 1;
+  margin-bottom: 4px;
 }
 
 .card-badge.хит     { background: var(--badge-hit); }
