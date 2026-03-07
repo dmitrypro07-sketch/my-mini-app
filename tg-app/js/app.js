@@ -144,7 +144,7 @@ function renderCatalog() {
             const words = a.title.split(' ');
             const first = words[0];
             const rest = words.slice(1).join(' ');
-            return `<span>${first} <span class="card-badge ${a.badge.toLowerCase()}">${a.badge}</span></span>${rest ? `<br>${rest}` : ''}`;
+            return `${first} <span class="card-badge ${a.badge.toLowerCase()}">${a.badge}</span>${rest ? ' ' + rest : ''}`;
           })()}
         </div>
       </div>
