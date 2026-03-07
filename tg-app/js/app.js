@@ -138,8 +138,14 @@ function renderCatalog() {
       <!-- Фото слева + название поверх -->
       <div class="card-image">
         ${a.image ? `<img src="${a.image}" alt="${a.title}" loading="lazy" />` : ''}
-        ${a.badge ? `<div class="card-badge ${a.badge.toLowerCase()}">${a.badge}</div>` : ''}
-        <div class="card-title-overlay">${a.title}</div>
+        <div class="card-title-overlay">
+          ${(() => {
+            const words = a.title.split(' ');
+            const first = words[0];
+            const rest = words.slice(1).join(' ');
+            return `<span>${first}${a.badge ? ` <span class="card-badge ${a.badge.toLowerCase()}">${a.badge}</span>` : ''}</span>${rest ? `<br>${rest}` : ''}`;
+          })()}
+        </div>
       </div>
 
       <!-- Контент справа -->

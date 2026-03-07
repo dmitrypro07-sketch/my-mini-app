@@ -238,19 +238,18 @@ body {
   min-width: 0; /* важно для text-overflow */
 }
 
-/* Бейдж "Хит" / "Новинка" — прямоугольник в правом верхнем углу */
+/* Бейдж "Хит" / "Новинка" — инлайн рядом с первым словом названия */
 .card-badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 4px;
   font-size: 9px;
   font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 4px;
+  padding: 2px 6px;
+  border-radius: 3px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: #fff;
-  z-index: 2;
 }
 
 .card-badge.хит     { background: var(--badge-hit); }
