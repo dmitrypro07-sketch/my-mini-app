@@ -268,6 +268,7 @@ body {
 }
 
 .card-desc {
+  flex: 1;
   font-size: 12px;
   color: var(--subtext);
   line-height: 1.4;
@@ -282,7 +283,6 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 6px;
-  margin-top: auto;
 }
 
 .card-price {
