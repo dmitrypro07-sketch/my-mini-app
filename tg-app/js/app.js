@@ -142,9 +142,13 @@ function renderCatalog() {
           ${(() => {
             if (!a.badge) return a.title;
             const words = a.title.split(' ');
-            const first = words[0];
-            const rest = words.slice(1).join(' ');
-            return `${first} <span class="card-badge ${a.badge.toLowerCase()}">${a.badge}</span>${rest ? ' ' + rest : ''}`;
+            const badge = `<span class="card-badge ${a.badge.toLowerCase()}">${a.badge}</span>`;
+            if (words.length === 1) {
+              // Одно слово: бейдж сверху, слово снизу
+              return `${badge} ${a.title}`;
+            }
+            // Несколько слов: первое слово + бейдж, остаток снизу
+            return `${words[0]} ${badge} ${words.slice(1).join(' ')}`;
           })()}
         </div>
       </div>
