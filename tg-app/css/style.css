@@ -428,12 +428,13 @@ body {
   }
 
   .sheet-hero {
-    width: 280px;
-    height: 280px;
-    align-self: flex-start;
-    border-radius: 20px 0 0 8px;
+    width: 260px;
+    height: 260px;
+    align-self: center;
+    border-radius: 12px;
     flex-shrink: 0;
     overflow: hidden;
+    margin: 16px 0 16px 16px;
   }
 
   .sheet-hero img {
